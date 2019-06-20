@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Generador de Firmas de Correo UCP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="estilo.css">
+<link rel="stylesheet" type="text/css" href="estilo.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.10.1/umd/popper.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="shortcut icon" type="image/png" href="https://www.ucp.edu.ar/firmas/img/icon.png"/>
+<script>
+function cambiemos(campo){ $("#Card"+campo).html($("#"+campo).val()); }
+function cambiarEmail(campo){ $("#Card"+campo).html($("#"+campo).val()); }
+function cambiemosInterno(campo){ $("#Card"+campo).html("Interno "+$("#"+campo).val()); }
+function mostrar(campo){ $( "#"+campo ).slideToggle(); }
+function mostrar2(campo){ $( "#"+campo ).toggle(); }
+function seleccion(){
+	  $("#CardSede").html($("#Sede").val());
+}
+
+function generar(){
+	$("#preview").slideToggle();
+	$("#loading").slideToggle();
+	var Nombre = $("#Nombre").val();
+	var Cargo = $("#Cargo").val();
+	var Prefijo = $("#Prefijo").val();
+	var Tel = $("#Tel").val();
+	var Correo = $("#Correo").val();
+	var Sede = $("Sede").val();
+	var Eco = $("#Eco").prop( "checked" );
+}
+</script>
+</head>
+<body>
+  <div id="superior" style="width:100%; height:10vh; position:relative; background:#295E94; margin:0; padding:0; margin-bottom:1vh;">
+      <div style="width:81%; height:100%; position:relative; margin: 0 auto;">
+          <div class="logo"><a href="inicio"><img src="img/logowhite.svg" height="100%" title="Universidad de la Cuenca del Plata"/></a></div>
+      </div>
+  </div>
+
+	<div id="p1">
+
+		<div class="row" style="width:90%; height:60vh; position:relative; margin: 0 auto; text-align:left; font-size:1.5em;" class="vertical-centered-text">
+			<div class="col-md-6 col-sm-12 col-lg-6 col-xl-6" style="position:relative; margin: 0 auto; text-align:left; padding:4%; line-height:87%; vertical-align: top;">
+				Generador de Firmas de Correo
+				<span  title="Rellene todos los campos del formulario, después presione el botón 'Generar Firma', luego se le darán las instrucciónes a seguir" data-toggle="tooltip"><img style="vertical-align:middle" src="https://www.ucp.edu.ar/firmas/img/help.png"  width="16px" height="16px" title="Universidad de la Cuenca del Plata"/></span>		
+				<br><hr>
+				<div id="preview">
+					<input type="text"  name="Nombre" id="Nombre" class="campo" maxlength="50" placeholder="Nombre y Apellido" autocomplete="off" onKeyUp="cambiemos('Nombre')" required/>
+       		<br><br>
+        	<input type="text" name="Cargo" id="Cargo" class="campo" maxlength="100" placeholder="Cargo / Función / Área / Departamento" autocomplete="off" onKeyUp="cambiemos('Cargo')" required/>
+        	<br><br>
+        	<input type="text" required name="Prefijo" id="Prefijo" class="campo" maxlength="5" placeholder="Prefijo" autocomplete="off" style="width: 20%; margin-right: 5%;" onKeyUp="cambiemos('Prefijo')" required /><input type="text" name="Tel" id="Tel" class="campo" maxlength="9" placeholder="Teléfono" autocomplete="off" style="width: 50%; margin-right: 5%;" onKeyUp="cambiemos('Tel')" required/><input type="text" name="Interno" id="Interno" class="campo" maxlength="4" placeholder="Interno" autocomplete="off" style="width: 20%;" onKeyUp="cambiemosInterno('Interno')" required/>
+        	<br><br>
+      		<input type="email" name="Correo" id="Email" class="campo" maxlength="255" placeholder="Correo Electrónico" autocomplete="off" onKeyUp="cambiarEmail('Email')" required />
+					<br><br>
+					<div class="seletor">
+						<select id="Sede" onChange="seleccion()">
+					  	<option value="Lavalle 50, Corrientes, Argentina" selected>Sede Central</option>
+				  		<option value="Barrufaldi 2364, Posadas, Misiones">Sede Posadas</option>
+				  		<option value="Maipú 4625, Formosa, Argentina">Sede Formosa</option>
+				  		<option value="Dónovan 521, Resistencia, Chaco">Sede Resistencia</option>
+				  		<option value="Rivadavía 580, Sáenz Peña, Chaco">Sede Sáenz Peña</option>
+				  		<option value="Corrientes 57, Goya, Corrientes">Sede Goya</option>
+				  		<option value="Belgrano 1455, Libres, Corrientes">Sede Paso de los Libres</option>
+				  		<option value="G. Ramírez 872, Curuzú, Corrientes">Sede Curuzú Cuatiá</option>
+				  		<option value="Plácido Martinez 886, Corrientes">Educación Digital</option>
+						</select>
+					</div>
+        	<br>
+					<p style="font-size:14px; color: #666;">
+					<span style="display: block; float: left"><input type="checkbox" id="Eco" name="MensajeEco" value="1" checked onChange="mostrar('CardEco')">&nbsp; Mensaje Ecológico</span>
+					<span style="display: block; float: right"><input type="checkbox" id="Redes" name="Redes" value="1" >&nbsp; Redes Sociales</span>
+					</p>
+					<br><br>
+		
+					<a href="#flex" id="abrir"><center id="generarFirma"><input id="botonFirma" onclick="copy()" type="button" value="Generar Firma" class="boton Generador"  ></center></a>
+				</div>
+
+				<div style="color:#666; font-size: 16px; line-height:45px; text-align: center; display:none; border-radius:45px; height: 45px; background-color: #FFF;" id="alerta">
+				</div>
+				<div style="color:#FFF; font-size: 16px; line-height:45px; text-align: center; display:none; border-radius:45px; height: 45px; background-color: #295E94;" id="loading">
+					<img src="img/loader.gif" border="0"/> &nbsp; Procesando
+				</div>
+
+			</div>
+	
+ 
+			<div class="col-md-6 col-sm-12 col-lg-6 col-xl-6" style="position:relative; margin: 0 auto; text-align:left; padding:4%; line-height:120%; vertical-align: top;" class="unselectable">
+
+				Vista Previa
+				<br><hr>
+
+				<div class="row" id="vistaPrevia"   style="background:#FFF; border-radius:5px; padding:3% 2% 2% 2%; line-height:120%;">
+					<div class=" .col-12">
+						<table border="0" cellspacing="0" cellpadding="0" id="Card">
+			  			<tbody>
+								<tr>
+				  				<td width="48px" valign="top"><img src="https://www.ucp.edu.ar/firmas/img/icon.png" width="48px" height="48px" title="Universidad de la Cuenca del Plata"/></td>
+				  				<td width="15px">&nbsp;</td>
+				  				<td width="275px" valign="top" style="color: #666; font-size: 12px; font-family: sans-serif;">
+									<span id="CardNombre" style="text-transform: uppercase; font-weight: bold; font-size: 14px; color: #295E94;">Nombre y Apellido</span><br>
+									<span id="CardCargo">Cargo, función, área y/o departamento</span><br>
+									<hr style="padding: 0; margin: 5px 0px 5px 0px; border: solid #CCC; border-width: 1px 0 0 0; color: #CCC; height: 1px;">
+									<p style="color: #666">UNIVERSIDAD DE LA CUENCA DEL PLATA</p>
+									</td>
+				  				<td width="10px" style="border-right: 1px solid #CCC;">&nbsp;</td>
+				  				<td width="10px">&nbsp;</td>
+				 					<td width="162px" valign="top" style="color: #666; font-size: 10px; font-family: sans-serif;">
+									<span id="CardCorreo" ><a style="text-decoration: none; color: #666"><span id="CardEmail">ejemplo@ucp.edu.ar</span></a></span></br>
+					  			+54 (<span id="CardPrefijo">0000</span>) <span id="CardTel">0000000</span> <span id="CardInterno"></span></br>
+									<span id="CardSede" style="color: #666">Lavalle 50, Corrientes, Argentina</span><br>
+									<span style="color: #666; text-decoration: none; margin-bottom: 5%"> <a style="text-decoration: none; color: #666">www.ucp.edu.ar </a></span></br>
+									<span style="display: none;" id="CardRedes" style="display: none; color:#999;"><img style="vertical-align: middle; margin-top: 4px" id="red"  usemap="#redes" src="https://www.ucp.edu.ar/firmas/img/redes.png" height="16px" style="float: left; margin-top: 4px" />&nbsp; cuencadelplata</span>
+									</td>
+								</tr>
+			  			</tbody>
+						</table>
+						<p id="CardEco"><span  style="color: #999; font-size: 12px; font-family: sans-serif; margin: 20px 0px 0px 0px;vertical-align: middle"><img style="vertical-align: middle; margin-bottom: 4px" src="https://www.ucp.edu.ar/firmas/img/leaf.png" width="12px" height="12px"/> Antes de imprimir este correo, asegúrese que sea necesario. Cuidemos el Medio Ambiente.</span></p>
+					</div>
+					
+				</div>
+			
+			</div>
+			<a href="#flex1" id="abrir1"><center id="generarFirma1"><input  id="botonQuery" onclick="copy()" type="button" value="Generar Firma" class="boton Generador"></center></a>
+	
+		</div>
+
+		<map name="redes" id="mapeo">
+			<area alt="instagram" shape="rect" coords="34,1,54,14" href="https://www.instagram.com/cuencadelplata">
+			<area alt="twitter" shape="rect" coords="12,2,32,14" href="https://www.twitter.com/cuencadelplata">
+			<area alt="facebook" shape="rect" coords="-6,2,11,14" href="https://www.facebook.com/cuencadelplata">
+			<area alt="youtube" shape="rect" coords="58,3,76,13" href="https://www.youtube.com/cuencadelplata">							
+		</map>
+
+ 
+
+
+<div id="miModal" class="modal">
+	<div class="flex" id="flex">
+		<div class="contenido-modal">
+			<div class="modal-header flex">
+				<h2 style="color:white">Universidad De La Cuenca Del Plata</h2>
+				<span class="close" id="close">&times;</span>
+			</div>
+			<div class="modal-body">
+				<h2 style="text-align: center; color:black">Su firma ha sido copiada al portapapeles</h2>
+				<h2 style="color: #295E94">Pasos para guardar su firma en su correo electrónico:</h2>
+				<p>1- Vaya a su cuenta de gmail.
+				<br>
+				2 - Haga click en la herramienta de configuración <img src="https://www.ucp.edu.ar/firmas/img/config.png" alt="" width="20px" height="20px">
+				<br>
+				3- Seleccione la opción 'Configuración'.
+				<br>
+				4- Diríjase hacia abajo hasta llegar a la sección 'Firma', una vez allí haga click derecho en el campo correspondiente a la sección y seleccione la opción ‘pegar’; si está desde un celular o tablet, toque por un momento el campo hasta que vea la opción ‘pegar’. En caso de ya contar con una firma, sólo reemplácela.
+				<br>
+				5- Por último vaya hacia el final de la página y seleccione: 'Guardar cambios' 
+				<br>
+
+				*Las instrucciones también han sido enviada a su dirección de correo electrónico</p>			
+			</div>
+			<div class="footer">
+					
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="miModal1" class="modal1">
+	<div class="flex1" id="flex1">
+		<div class="contenido-modal1">
+			<div class="modal-header1 flex1">
+				<h2 style="color: white">Universidad De La Cuenca Del Plata</h2>
+				<span class="close1" id="close1">&times;</span>
+			</div>
+			<div class="modal-body1">
+				<h2 style="text-align: center; color: black">Su firma ha sido copiada al portapapeles</h2>
+				<h2 style="color: #295E94">Pasos para guardar su firma en su correo electrónico:</h2>
+				<p>1- Vaya a su cuenta de gmail.
+				<br>
+				2 - Haga click en la herramienta de configuración <img src="https://www.ucp.edu.ar/firmas/img/config.png" alt="" width="20px" height="20px">
+				<br>
+				3- Seleccione la opción 'Configuración'.
+				<br>
+				4- Diríjase hacia abajo hasta llegar a la sección 'Firma', una vez allí haga click derecho en el campo correspondiente a la sección y seleccione la opción ‘pegar’; si está desde un celular o tablet, toque por un momento el campo hasta que vea la opción ‘pegar’. En caso de ya contar con una firma, sólo reemplácela.
+				<br>
+				5- Por último vaya hacia el final de la página y seleccione: 'Guardar cambios' 
+				<br>
+				*Las instrucciones también han sido enviada a su dirección de correo electrónico</p>			
+			</div>
+		</div>
+		<div class="footer1">
+					
+		</div>
+	</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+	 $('[data-toggle="tooltip"]').tooltip();
+ });
+</script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="jquery-1.3.2.min.js" type="text/javascript"></script>   
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="js/enviarDatos.js"></script>
+<script type="text/javascript"
+    src="http://https://www.ucp.edu.ar/firmas/index.html/jsFiles/miArchivoJavaScript.js?123">
+</script>
+
+	<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-P68WXZD');</script>
+	<!-- End Google Tag Manager -->
+
+</body>
+</html>
